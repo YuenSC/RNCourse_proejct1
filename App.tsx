@@ -10,9 +10,10 @@ import {
   View,
 } from "react-native";
 
-import StepOneComponent from "./components/StepOneComponent";
-import StepTwoComponent from "./components/StepTwoComponent";
+import SuccessGuess from "./components/SuccessGuess";
 import { GlobalContextProvider } from "./globalContext";
+import GameScreen from "./screens/GameScreen";
+import StartGameScreen from "./screens/StartGameScreen";
 
 export default function App() {
   const [step, setStep] = useState(0);
@@ -25,14 +26,16 @@ export default function App() {
       <ImageBackground
         source={require("./assets/background.png")}
         style={styles.container}
+        resizeMode="cover"
       >
         <LinearGradient
           // Background Linear Gradient
-          colors={["rgba(165,42,42,1)", "rgba(225,215,28,0.2)"]}
+          colors={["rgba(165,42,42)", "rgba(225,215,28)"]}
           style={styles.background}
         />
-        {step === 0 && <StepOneComponent />}
-        {step === 1 && <StepTwoComponent />}
+        {step === 0 && <StartGameScreen />}
+        {step === 1 && <GameScreen />}
+        {step === 2 && <SuccessGuess />}
       </ImageBackground>
     </GlobalContextProvider>
   );
@@ -46,5 +49,6 @@ const styles = StyleSheet.create({
     right: 0,
     top: 0,
     bottom: 0,
+    opacity: 0.75,
   },
 });

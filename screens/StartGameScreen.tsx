@@ -1,18 +1,27 @@
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 
+import StyledButton from "../components/StyledButton";
+import Title from "../components/Title";
 import { useGlobalContext } from "../globalContext";
-import StyledButton from "./StyledButton";
-import Title from "./Title";
 
-const StepOneComponent = () => {
-  const [guessNumber, setGuessNumber] = useState<number | null>(null);
+type AlertType = (
+  title: string,
+  message: string,
+  buttons: {
+    text: string;
+    onPress: () => void;
+    style: "default" | "cancel" | "destructive"; // ios
+  }[],
+  options: {
+    cancelable: boolean; // andriod
+    userInterfaceStyle: "light" | "dark"; // ios
+    onDismiss: () => void; // android
+  }
+) => void;
+
+const StartGameScreen = () => {
+  const [guessNumberInString, setGuessNumberInString] = useState<string>("");
   const { confirmedNumber, setConfirmedNumber, setStep } = useGlobalContext();
 
   return (
@@ -24,40 +33,55 @@ const StepOneComponent = () => {
         <Text style={styles.numberInputBox__title}>Enter a Number</Text>
         <TextInput
           keyboardType="number-pad"
+          maxLength={2}
           style={styles.numberInput__input}
-          value={guessNumber?.toString() ?? ""}
-          onChangeText={(text) => setGuessNumber(text ? parseInt(text) : null)}
+          value={guessNumberInString}
+          onChangeText={setGuessNumberInString}
         />
         <View style={styles.numberInput__buttonContainer}>
           <StyledButton
             style={{ marginRight: 10 }}
-            onPress={() => setGuessNumber(null)}
+            onPress={() => setGuessNumberInString("")}
           >
             <Text style={styles.numberInput__buttonText}>Reset</Text>
           </StyledButton>
           <StyledButton
             onPress={() => {
-              if (guessNumber) {
-                // range is 1 to 100
-                if (guessNumber > 100 || guessNumber <= 0) {
-                  return;
-                }
-                setConfirmedNumber(guessNumber);
-                setStep(1);
+              const guessNumber = parseInt(guessNumberInString);
+              if (
+                !Number.isInteger(guessNumber) ||
+                guessNumber < 1 ||
+                guessNumber > 99
+              ) {
+                // alert
+                Alert.alert(
+                  "Invalid number",
+                  "Number has to be between 1 to 99",
+                  [
+                    {
+                      text: "okay",
+                      style: "destructive",
+                      onPress: () => setGuessNumberInString(""),
+                    },
+                  ]
+                );
+                return;
               }
+              setConfirmedNumber(guessNumber);
+              setStep(1);
             }}
           >
             <Text style={styles.numberInput__buttonText}>Confirm</Text>
           </StyledButton>
         </View>
       </View>
-      <Text>guessNumber : {guessNumber}</Text>
+      <Text>guessNumber : {guessNumberInString}</Text>
       <Text>confirmedNumber : {confirmedNumber}</Text>
     </>
   );
 };
 
-export default StepOneComponent;
+export default StartGameScreen;
 
 const styles = StyleSheet.create({
   titleBox: { paddingTop: 100 },
@@ -70,6 +94,7 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     marginHorizontal: 30,
     marginTop: 30,
+    elevation: 4,
   },
 
   numberInputBox__title: { fontSize: 20, color: "orange" },
@@ -81,6 +106,7 @@ const styles = StyleSheet.create({
     borderColor: "yellow",
     fontSize: 25,
     color: "orange",
+    textAlign: "center",
   },
   numberInput__buttonContainer: {
     flexDirection: "row",
