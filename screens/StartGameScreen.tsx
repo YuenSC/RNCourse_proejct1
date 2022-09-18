@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 
 import StyledButton from "../components/StyledButton";
 import Title from "../components/Title";

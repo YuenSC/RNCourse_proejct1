@@ -36,11 +36,9 @@
     "extends": "universe"
   },
   "lint-staged": {
-    "./**/*.{ts,tsx}": [
-      "yarn lint"
-    ],
-    "./**": [
-      "yarn format"
+    "*.{ts,tsx}": [
+      "eslint --fix --max-warnings=0",
+      "prettier --write"
     ]
   },
   "husky": {
