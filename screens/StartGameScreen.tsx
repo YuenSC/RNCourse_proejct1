@@ -5,21 +5,6 @@ import StyledButton from "../components/StyledButton";
 import Title from "../components/Title";
 import { useGlobalContext } from "../globalContext";
 
-type AlertType = (
-  title: string,
-  message: string,
-  buttons: {
-    text: string;
-    onPress: () => void;
-    style: "default" | "cancel" | "destructive"; // ios
-  }[],
-  options: {
-    cancelable: boolean; // andriod
-    userInterfaceStyle: "light" | "dark"; // ios
-    onDismiss: () => void; // android
-  }
-) => void;
-
 const StartGameScreen = () => {
   const [guessNumberInString, setGuessNumberInString] = useState<string>("");
   const { confirmedNumber, setConfirmedNumber, setStep } = useGlobalContext();
@@ -47,7 +32,7 @@ const StartGameScreen = () => {
           </StyledButton>
           <StyledButton
             onPress={() => {
-              const guessNumber = parseInt(guessNumberInString);
+              const guessNumber = parseInt(guessNumberInString, 10);
               if (
                 !Number.isInteger(guessNumber) ||
                 guessNumber < 1 ||

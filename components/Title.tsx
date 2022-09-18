@@ -1,5 +1,5 @@
 import React, { FC, PropsWithChildren } from "react";
-import { StyleSheet, Text, TextProps, View } from "react-native";
+import { StyleSheet, Text, TextProps } from "react-native";
 
 const Title: FC<PropsWithChildren<TextProps>> = ({
   children,

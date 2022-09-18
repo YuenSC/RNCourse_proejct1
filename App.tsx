@@ -1,14 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { useRef, useState } from "react";
-import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useState } from "react";
+import { ImageBackground, StyleSheet } from "react-native";
 
 import SuccessGuess from "./components/SuccessGuess";
 import { GlobalContextProvider } from "./globalContext";
@@ -30,7 +22,7 @@ export default function App() {
       >
         <LinearGradient
           // Background Linear Gradient
-          colors={["rgba(165,42,42)", "rgba(225,215,28)"]}
+          colors={["rgb(165,42,42)", "rgb(225,215,28)"]}
           style={styles.background}
         />
         {step === 0 && <StartGameScreen />}
