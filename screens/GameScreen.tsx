@@ -119,16 +119,16 @@ const GameScreen = () => {
             );
           }}
         />
-        <View style={{ flexDirection: "row", marginTop: 10 }}>
-          <StyledButton
-            onPress={() => {
-              onStartNewGame();
-              handleReset();
-            }}
-          >
-            <StyledText style={{ color: "white" }}>Return</StyledText>
-          </StyledButton>
-        </View>
+      </View>
+      <View style={{ flexDirection: "row", marginTop: 10 }}>
+        <StyledButton
+          onPress={() => {
+            onStartNewGame();
+            handleReset();
+          }}
+        >
+          <StyledText style={{ color: "white" }}>Return</StyledText>
+        </StyledButton>
       </View>
     </View>
   );
@@ -137,7 +137,12 @@ const GameScreen = () => {
 export default GameScreen;
 
 const styles = StyleSheet.create({
-  container: { marginTop: 25, alignSelf: "stretch", padding: 10, flex: 1 },
+  container: {
+    marginTop: 25,
+    alignSelf: "stretch",
+    padding: 10,
+    flex: 1,
+  },
   title: { textAlign: "center", paddingVertical: 15, fontSize: 25 },
   guessBox: {
     borderWidth: 3,

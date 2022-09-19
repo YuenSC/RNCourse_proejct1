@@ -9,7 +9,14 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useState } from "react";
-import { ImageBackground, SafeAreaView, StyleSheet } from "react-native";
+import {
+  ImageBackground,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  useWindowDimensions,
+} from "react-native";
 
 import { GlobalContextProvider, Record } from "./globalContext";
 import GameOverScreen from "./screens/GameOverScreen";
@@ -22,6 +29,8 @@ export default function App() {
   const [step, setStep] = useState(0);
   const [confirmedNumber, setConfirmedNumber] = useState(0);
   const [records, setRecords] = useState<Record[]>([]);
+
+  const { height } = useWindowDimensions();
 
   const [fontLoaded] = useFonts({
     Comfortaa_300Light,
@@ -68,13 +77,30 @@ export default function App() {
           colors={["rgb(165,42,42)", "rgb(225,215,28)"]}
           style={styles.background}
         />
-        <SafeAreaView
-          style={{ alignSelf: "stretch", alignItems: "center", flex: 1 }}
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{
+            flex: 1,
+          }}
         >
-          {step === 0 && <StartGameScreen />}
-          {step === 1 && <GameScreen />}
-          {step === 2 && <GameOverScreen />}
-        </SafeAreaView>
+          <SafeAreaView
+            style={{
+              flex: 1,
+            }}
+          >
+            <KeyboardAvoidingView
+              style={{
+                flex: 1,
+                paddingHorizontal: 10,
+              }}
+              behavior={height < 400 ? "position" : "padding"}
+            >
+              {step === 0 && <StartGameScreen />}
+              {step === 1 && <GameScreen />}
+              {step === 2 && <GameOverScreen />}
+            </KeyboardAvoidingView>
+          </SafeAreaView>
+        </ScrollView>
       </ImageBackground>
     </GlobalContextProvider>
   );
