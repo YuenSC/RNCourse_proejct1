@@ -1,5 +1,7 @@
 import React, { FC, PropsWithChildren } from "react";
-import { StyleSheet, Text, TextProps } from "react-native";
+import { StyleSheet, TextProps } from "react-native";
+
+import StyledText from "./StyledText";
 
 const Title: FC<PropsWithChildren<TextProps>> = ({
   children,
@@ -7,12 +9,12 @@ const Title: FC<PropsWithChildren<TextProps>> = ({
   ...props
 }) => {
   return (
-    <Text
+    <StyledText
       style={{ ...styles.title, ...(typeof style === "object" && style) }}
       {...props}
     >
       {children}
-    </Text>
+    </StyledText>
   );
 };
 
@@ -25,6 +27,8 @@ const styles = StyleSheet.create({
     padding: 8,
     color: "white",
     fontWeight: "bold",
+    fontFamily: "Comfortaa_700Bold",
     borderColor: "white",
+    textAlign: "center",
   },
 });

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, View } from "react-native";
 
 import StyledButton from "../components/StyledButton";
+import StyledText from "../components/StyledText";
 import Title from "../components/Title";
 import { useGlobalContext } from "../globalContext";
 
@@ -15,7 +16,9 @@ const StartGameScreen = () => {
         <Title>Guess My Number</Title>
       </View>
       <View style={styles.numberInput__box}>
-        <Text style={styles.numberInputBox__title}>Enter a Number</Text>
+        <StyledText style={styles.numberInputBox__title}>
+          Enter a Number
+        </StyledText>
         <TextInput
           keyboardType="number-pad"
           maxLength={2}
@@ -60,8 +63,8 @@ const StartGameScreen = () => {
           </StyledButton>
         </View>
       </View>
-      <Text>guessNumber : {guessNumberInString}</Text>
-      <Text>confirmedNumber : {confirmedNumber}</Text>
+      <StyledText>guessNumber : {guessNumberInString}</StyledText>
+      <StyledText>confirmedNumber : {confirmedNumber}</StyledText>
     </>
   );
 };
